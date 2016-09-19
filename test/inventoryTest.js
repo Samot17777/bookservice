@@ -2,7 +2,7 @@ var request = require('supertest');
 var assert = require('assert');
 
 it('allows to stock up the items', function (done) {
-    var app = require('../app.js')(require('../inMemoryStockRepository')());
+    var app = require('../lib/app.js')(require('../lib/inMemoryStockRepository')());
 
     request(app).
         post('/stock').
@@ -12,9 +12,9 @@ it('allows to stock up the items', function (done) {
 });
 
 it('allows to check book availability', function (done) {
-    var repository = require('../inMemoryStockRepository')();
+    var repository = require('../lib/inMemoryStockRepository')();
     repository._items([{isbn: '1234', count: 1}]);
-    var app = require('../app.js')(repository);
+    var app = require('../lib/app.js')(repository);
 
     request(app).
         get('/stock/1234').
