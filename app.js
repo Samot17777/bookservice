@@ -43,9 +43,9 @@ app.get('/', logIncoming, function (req, res) {
 
 });
 
-app.post('/stock', function (req, res) {
-    var url = 'mongodb://localhost:27017/book_inventory_service';
+var url = 'mongodb://localhost:27017/book_inventory_service';
 
+app.post('/stock', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         console.log("Connected succesfully to DB");
         db.collection('books').updateOne({isbn: req.body.isbn}, {
@@ -57,6 +57,14 @@ app.post('/stock', function (req, res) {
     });
 
     res.json({isbn: req.body.isbn, count: req.body.count});
+});
+
+app.get('/stock', function (req, res) {
+    MongoClient.connect(url, function (err, db) {
+        db.collection('books').find({}).toArray(function(err, results) {
+            res.json(results);
+        });
+    });
 });
 
 app.use(clientError);
