@@ -55,7 +55,6 @@ app.get('/stock/:isbn', function (req, res, next) {
             } else {
                 res.status(404).send('No book with isbn ' + req.params.isbn);
             }
-            res.json({count: result});
         }).
         catch(next);
 });
