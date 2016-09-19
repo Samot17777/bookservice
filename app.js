@@ -1,8 +1,9 @@
 var express = require('express');
-var app = express();
 var bodyParser = require('body-parser');
 
 module.exports = function (stockRepository) {
+    var app = express();
+
     app.use(bodyParser.json());
 
     function logIncoming(req, res, next) {
