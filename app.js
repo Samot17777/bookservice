@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var MongoClient = require('mongodb').MongoClient;
 
 app.use(bodyParser.json());
 
@@ -26,7 +27,15 @@ function serverError(err, req, res, next) {
 }
 
 app.get('/', logIncoming, function (req, res) {
-    res.send('Hello World');
+    var url = 'mongodb://localhost:27017/book_inventory_service';
+
+    MongoClient.connect(url, function (err, db) {
+        console.log("Connected succesfully to DB");
+
+        db.close();
+        res.send('Hello World');
+    });
+
 });
 
 app.post('/stock', function (req, res) {
