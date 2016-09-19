@@ -45,7 +45,7 @@ var collection = MongoClient.connect(url).then(function (db) {
 //});
 
 
-app.post('/stock', function (req, res) {
+app.post('/stock', function (req, res, next) {
     collection.then(function (collection) {
         return collection.updateOne({isbn: req.body.isbn}, {
             isbn: req.body.isbn,
@@ -53,16 +53,16 @@ app.post('/stock', function (req, res) {
         }, {upsert: true});
     }).then(function () {
         res.json({isbn: req.body.isbn, count: req.body.count});
-    });
+    }).catch(next);
 
 });
 
-app.get('/stock', function (req, res) {
+app.get('/stock', function (req, res, next) {
     collection.then(function(collection) {
         return collection.find({}).toArray();
     }).then(function(result) {
         res.json(result);
-    });
+    }).catch(next);
 });
 
 app.use(clientError);
