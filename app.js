@@ -27,7 +27,8 @@ function serverError(err, req, res, next) {
 }
 
 var url = 'mongodb://localhost:27017/book_inventory_service';
-var collection = MongoClient.connect(url).then(function (db) {
+
+var collection = MongoClient.connect(url, {db: {bufferMaxEntries: 0}}).then(function (db) {
     return db.collection('books');
 });
 //MongoClient.connect(url, function (err, db) {
@@ -58,9 +59,9 @@ app.post('/stock', function (req, res, next) {
 });
 
 app.get('/stock', function (req, res, next) {
-    collection.then(function(collection) {
+    collection.then(function (collection) {
         return collection.find({}).toArray();
-    }).then(function(result) {
+    }).then(function (result) {
         res.json(result);
     }).catch(next);
 });
