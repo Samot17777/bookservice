@@ -27,5 +27,16 @@ module.exports = {
             then(function (collection) {
                 return collection.find({}).toArray();
             });
+    },
+    getCount: function (isbn) {
+        return collection.then(function (collection) {
+            return collection.find({"isbn": isbn}).limit(1).next();
+        }).then(function(result) {
+            if(result) {
+                return result.count;
+            } else {
+                return null;
+            }
+        });
     }
-}
+};
