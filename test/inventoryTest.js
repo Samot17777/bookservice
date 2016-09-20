@@ -19,4 +19,4 @@ it('allows to check book availability', function (done) {
     request(app).
         get('/stock/1234').
         expect(200, {count: 1}, done);
-});
+}); 
