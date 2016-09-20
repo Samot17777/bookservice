@@ -8,7 +8,6 @@
     "test": "mocha",
     "lint": "jshint --exclude=node_modules lib/",
     "test:xunit": "npm run test -- --reporter xunit"
-
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +17,7 @@
     "mongodb": "2.2.10"
   },
   "devDependencies": {
+    "heroin-js": "1.12.2",
     "jshint": "2.9.3",
     "mocha": "3.0.2",
     "supertest": "2.0.0"
