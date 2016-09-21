@@ -14,9 +14,18 @@ it('allows to stock up the items', function (done) {
 it('allows to check book availability', function (done) {
     var repository = require('../lib/inMemoryStockRepository')();
     repository._items([{isbn: '1234', count: 1}]);
-    var app = require('../lib/app.js')(repository);
+    var app = require('../lib/app.js')(repository,true);
 
     request(app).
         get('/stock/1234').
         expect(200, {count: 1}, done);
+}); 
+it('allows to check book availability', function (done) {
+    var repository = require('../lib/inMemoryStockRepository')();
+    repository._items([{isbn: '1234', count: 1}]);
+    var app = require('../lib/app.js')(repository);
+
+    request(app).
+        get('/stock/1234').
+        expect(401, done);
 }); 
